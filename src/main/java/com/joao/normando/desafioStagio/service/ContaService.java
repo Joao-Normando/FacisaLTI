@@ -1,6 +1,7 @@
 package com.joao.normando.desafioStagio.service;
 
 import com.joao.normando.desafioStagio.model.Conta;
+import com.joao.normando.desafioStagio.model.Transacao;
 import com.joao.normando.desafioStagio.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import java.util.List;
 public class ContaService {
     @Autowired
     ContaRepository contaRepository;
+
+    @Autowired
+    TransacaoService transacaoService;
 
     @Autowired
     public List<Conta> listarContas() {
@@ -38,12 +42,23 @@ public class ContaService {
         Conta conta = contaRepository.findById(id).get();
         Double saldo = conta.getSaldo() - valor;
         conta.setSaldo(saldo);
+
+        Transacao transacao = new Transacao();
+        transacao.setIdConta(conta.getIdConta());
+        transacao.setValor(conta.getSaldo());
+        transacaoService.salvar(transacao);
+
     }
 
     public void depositar (Integer id, Double valor ){
         Conta conta = contaRepository.findById(id).get();
         Double saldo = conta.getSaldo() + valor;
         conta.setSaldo(saldo);
+
+        Transacao transacao = new Transacao();
+        transacao.setIdConta(conta.getIdConta());
+        transacao.setValor(conta.getSaldo());
+        transacaoService.salvar(transacao);
     }
 
     public Double consultarSaldo (Integer id){

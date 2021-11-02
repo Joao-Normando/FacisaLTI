@@ -25,9 +25,8 @@ public class Transacao {
     @Column(name = "dataTransacao")
     private LocalDateTime dataTransacao;
 
-    @ManyToOne
     @JoinColumn(name = "id_Conta")
-    private Conta idConta;
+    private Integer idConta;
 
 
 }

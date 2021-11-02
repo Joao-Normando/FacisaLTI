@@ -1,6 +1,5 @@
 package com.joao.normando.desafioStagio.service;
 
-import com.joao.normando.desafioStagio.model.Conta;
 import com.joao.normando.desafioStagio.model.Transacao;
 import com.joao.normando.desafioStagio.repository.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,17 @@ public class TransacaoService {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
+
     public Transacao salvar(Transacao transacao) {
         return transacaoRepository.save(transacao);
     }
 
     public List<Transacao> listar() {
         return transacaoRepository.findAll();
+    }
+
+    public List<Transacao> recuperaExtrato(Integer idConta) {
+        return transacaoRepository.findByConta(idConta);
     }
 
 }

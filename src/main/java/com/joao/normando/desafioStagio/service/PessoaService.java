@@ -14,7 +14,6 @@ import java.util.List;
 
 @Service
 @Transactional
-
 public class PessoaService implements Serializable {
     @Autowired
     PessoaRepository pessoaRepository;
